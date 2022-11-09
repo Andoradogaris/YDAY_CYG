@@ -703,6 +703,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1 &1236338937
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,6 +815,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d571862a35e8874b9cb3de9f9369194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+>>>>>>> 366ee18781808b3d2e77c0b71d876fd66110994f
 --- !u!1001 &1340361067
 PrefabInstance:
   m_ObjectHideFlags: 0

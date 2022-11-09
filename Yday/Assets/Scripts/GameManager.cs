@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private float maxStamina = 100f; 
     private float looseStamina;
     private float winStamina;
+<<<<<<< HEAD
     public float radioactivity;
     public float maxRadioactivity = 100f;
 
@@ -25,6 +26,17 @@ public class GameManager : MonoBehaviour
     private bool isDead;
 
     public bool isInside;
+=======
+    
+    public bool isCrouching;
+    public bool isRunning;
+    [HideInInspector]
+    public bool canRun;
+
+    public bool isShooting;
+
+    private bool isDead;
+>>>>>>> 366ee18781808b3d2e77c0b71d876fd66110994f
 
 
 
@@ -53,6 +65,7 @@ public class GameManager : MonoBehaviour
         {
             UpdateStamina(5);
         }
+<<<<<<< HEAD
 
         if(isInside) 
         {
@@ -69,6 +82,8 @@ public class GameManager : MonoBehaviour
             UpdateRadioactivity();
         }
 
+=======
+>>>>>>> 366ee18781808b3d2e77c0b71d876fd66110994f
         ClampStamina();
 
         if(isDead)
@@ -88,11 +103,14 @@ public class GameManager : MonoBehaviour
     public void UpdateStamina(float stam)
     {
         stamina += stam * Time.deltaTime;
+<<<<<<< HEAD
     }
 
     public void UpdateRadioactivity()
     {
         radioactivity -= 1 * Time.deltaTime;
+=======
+>>>>>>> 366ee18781808b3d2e77c0b71d876fd66110994f
     }
 
     public void ClampHealth()
@@ -120,6 +138,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
      public void ClampRadioactivity()
     {
         if (radioactivity > maxRadioactivity)
@@ -132,6 +151,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+=======
+>>>>>>> 366ee18781808b3d2e77c0b71d876fd66110994f
     public void Die()
     {
         SceneManager.LoadScene("main_menu");
