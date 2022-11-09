@@ -23,15 +23,14 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveD = Vector3.zero;
 
     CharacterController charac;
+    GameManager gameManager;
 
-    [SerializeField]
-    private bool isCrouching;
-    [SerializeField]
-    private bool isRunning;
+
 
     void Start()
     {
         charac = GetComponent<CharacterController>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
 
@@ -39,20 +38,20 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.LeftShift))
         {
-            isRunning = true;
+            gameManager.isRunning = true;
         }
         else
         {
-            isRunning = false;
+            gameManager.isRunning = false;
         }
 
         if(Input.GetKey(KeyCode.LeftControl))
         {
-            isCrouching = true;
+            gameManager.isCrouching = true;
         }
         else
         {
-            isCrouching = false;
+            gameManager.isCrouching = false;
         }
 
 
@@ -77,11 +76,11 @@ public class PlayerController : MonoBehaviour
 
     void SetSpeed()
     {
-        if(isCrouching)
+        if(gameManager.isCrouching)
         {
             actualSpeed = normalSpeed / 2;
         }
-        else if(isRunning)
+        else if(gameManager.isRunning &&  gameManager.canRun)
         {
             actualSpeed = normalSpeed * 2;
         }else

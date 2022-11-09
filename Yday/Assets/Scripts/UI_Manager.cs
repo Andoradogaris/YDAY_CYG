@@ -17,20 +17,16 @@ public class UI_Manager : MonoBehaviour
     }
 
     public void LunchGame(){
-        SceneManager.LoadScene("mainJeux");
-        Debug.Log("Erreur Attention (LunchGame) !");
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void QuitGame(){
         Application.Quit();
-        Debug.Log("Erreur Attention (QuiGame) !");
     }
 
     public void OptionGame(){
         mainMenu.SetActive(false);
         Option.SetActive(true);
-        
-        Debug.Log("Erreur Attention (OptionGame) !");
     }   
 
     /*public void OptionSound(){
@@ -49,7 +45,6 @@ public class UI_Manager : MonoBehaviour
         //SceneManager.LoadScene("Nom de la scene");
         mainMenu.SetActive(true);
         Option.SetActive(false);
-        Debug.Log("Erreur Attention (Back) !");
     }
 
     public void OptionLanguage(){
