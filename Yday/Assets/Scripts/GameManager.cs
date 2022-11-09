@@ -4,64 +4,86 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public float Health;
-    public float Stamina;
-    [SerializeField]
-    private float maxHealth; 
-    [SerializeField]
-    private float maxStamina; 
+    public float health;
+    public float stamina;
+    [SerializeField] private float maxHealth; 
+    [SerializeField] private float maxStamina; 
+    public float looseStamina;
+    public float winStamina;
+    
+
+
+
 
     void Start()
     {
-        Health = maxHealth;
-        Stamina = maxStamina;
+        health = maxHealth;
+        stamina = maxStamina;
     }
+
+    //UPDATE ! 
 
     void Update()
     {
-        ClampHealth();
+
+
+        ClampHealth();              //Encadrement des Variables
         ClampStamina();
-        TakeDamages();
+
+        if (Input.GetKeyDown(KeyCode.L))  //Degats subit
+        {
+            TakeDamages(15);
+        }
+
+        if (Input.GetKeyDown(KeyCode.O)) //Heal 
+        {
+            TakeHealth(15);
+        }
+
+            if (Input.GetKey(KeyCode.LeftShift))       // Gestion Stamina
+            {
+                stamina -= looseStamina * Time.deltaTime;
+            }
+            else
+            {
+                stamina += winStamina * Time.deltaTime;
+            }
     }
 
+    //FONCTION !
 
 
-
-
-
-
-
-
-    public void TakeDamages()
+    public void TakeDamages(float damages)
     {
-       if (Input.GetKey(KeyCode.A))
-       {
-        Health = Health - 15;
-       }
+        health -= damages;
     }
 
+     public void TakeHealth(float heal)
+    {
+        health += heal;
+    }
 
     public void ClampHealth()
     {
-        if (Health > maxHealth)
+        if (health > maxHealth)
         {
-            Health = maxHealth;
+            health = maxHealth;
         }
-        else if (Health < 0f)
+        else if (health < 0f)
         {
-            Health = 0f;
+            health = 0f;
         }
     }
 
      public void ClampStamina()
     {
-        if (Stamina > maxStamina)
+        if (stamina > maxStamina)
         {
-            Stamina = maxStamina;
+            stamina = maxStamina;
         }
-        else if (Stamina < 0f)
+        else if (stamina < 0f)
         {
-            Stamina = 0f;
+            stamina = 0f;
         }
     }
 }
