@@ -1,17 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public float health;
     public float stamina;
-    [SerializeField] private float maxHealth; 
-    [SerializeField] private float maxStamina; 
-    public float looseStamina;
-    public float winStamina;
-    
+    private float maxHealth = 100f; 
+    private float maxStamina = 100f; 
+    private float looseStamina;
+    private float winStamina;
+    public float radioactivity;
+    public float maxRadioactivity = 100f;
 
+    
+    public bool isCrouching;
+    public bool isRunning;
+    [HideInInspector]
+    public bool canRun;
+
+    public bool isShooting;
+
+    private bool isDead;
+
+    public bool isInside;
 
 
 
@@ -19,48 +32,67 @@ public class GameManager : MonoBehaviour
     {
         health = maxHealth;
         stamina = maxStamina;
+        radioactivity = 0f;
     }
 
     //UPDATE ! 
 
     void Update()
     {
+        if (isRunning && stamina > 0)       // Gestion Stamina
+        {
+            UpdateStamina(-5);
+            canRun = true;
+        }
+        else
+        {
+            canRun = false;
+        }
 
+        if(!isRunning && stamina < maxStamina)
+        {
+            UpdateStamina(5);
+        }
 
-        ClampHealth();              //Encadrement des Variables
+        if(isInside) 
+        {
+            if(radioactivity >= 100f)
+            {
+                UpdateHealth(15);
+            }
+            else 
+            {
+               radioactivity += 15f; 
+            }
+        }else
+        {
+            UpdateRadioactivity();
+        }
+
         ClampStamina();
 
-        if (Input.GetKeyDown(KeyCode.L))  //Degats subit
+        if(isDead)
         {
-            TakeDamages(15);
+            Die();
         }
-
-        if (Input.GetKeyDown(KeyCode.O)) //Heal 
-        {
-            TakeHealth(15);
-        }
-
-            if (Input.GetKey(KeyCode.LeftShift))       // Gestion Stamina
-            {
-                stamina -= looseStamina * Time.deltaTime;
-            }
-            else
-            {
-                stamina += winStamina * Time.deltaTime;
-            }
     }
 
     //FONCTION !
 
-
-    public void TakeDamages(float damages)
+    public void UpdateHealth(float toUpdate)
     {
-        health -= damages;
+        health += toUpdate;
+        ClampHealth();
     }
 
-     public void TakeHealth(float heal)
+    public void UpdateStamina(float stam)
     {
-        health += heal;
+        stamina += stam * Time.deltaTime;
+    }
+
+    public void UpdateRadioactivity()
+    {
+        radioactivity -= 1 * Time.deltaTime;
     }
 
     public void ClampHealth()
@@ -72,10 +104,11 @@ public class GameManager : MonoBehaviour
         else if (health < 0f)
         {
             health = 0f;
+            isDead = true;
         }
     }
 
-     public void ClampStamina()
+    public void ClampStamina()
     {
         if (stamina > maxStamina)
         {
@@ -85,6 +118,23 @@ public class GameManager : MonoBehaviour
         {
             stamina = 0f;
         }
+    }
+
+     public void ClampRadioactivity()
+    {
+        if (radioactivity > maxRadioactivity)
+        {
+            radioactivity = maxRadioactivity;
+        }
+        else if (radioactivity < 0f)
+        {
+            radioactivity = 0f;
+        }
+    }
+
+    public void Die()
+    {
+        SceneManager.LoadScene("main_menu");
     }
 }
 

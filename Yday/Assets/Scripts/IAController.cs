@@ -18,10 +18,6 @@ public class IAController : MonoBehaviour
     private Material mat;
 
     [SerializeField]
-    private bool isRunning;
-    [SerializeField]
-    private bool isCrouching;
-    [SerializeField]
     private bool isShooting;
 
     private bool canhit = true;
@@ -31,9 +27,12 @@ public class IAController : MonoBehaviour
     [SerializeField]
     private float attackRadius;
 
+    GameManager gameManager;
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void Update()
@@ -53,7 +52,7 @@ public class IAController : MonoBehaviour
             }
         }
 
-        if(agent.remainingDistance >= 0 && agent.remainingDistance <= 5 && canhit)
+        if(agent.remainingDistance > 0 && agent.remainingDistance <= 3.1 && canhit)
         {
             canhit = false;
             StartCoroutine(Hit());
@@ -64,17 +63,17 @@ public class IAController : MonoBehaviour
             mat.color = new Color(0, 255, 0);
         }
 
-        if (isShooting)
+        if (gameManager.isShooting)
         {
             attentionRange.GetComponent<SphereCollider>().radius = attentionRadius * 10;
             attackRange.GetComponent<SphereCollider>().radius = attackRadius * 10;
         }
-        else if (isRunning)
+        else if (gameManager.isRunning)
         {
             attentionRange.GetComponent<SphereCollider>().radius = attentionRadius * 2;
             attackRange.GetComponent<SphereCollider>().radius = attackRadius * 2;
         }
-        else if (isCrouching)
+        else if (gameManager.isCrouching)
         {
             attentionRange.GetComponent<SphereCollider>().radius = attentionRadius / 2;
             attackRange.GetComponent<SphereCollider>().radius = attackRadius / 2;
@@ -88,7 +87,7 @@ public class IAController : MonoBehaviour
 
         IEnumerator Hit()
         {
-            Debug.Log("Hit");
+            gameManager.UpdateHealth(-20);
             yield return new WaitForSeconds(1f);
             canhit = true;
         }
