@@ -5,6 +5,12 @@ using UnityEngine.AI;
 
 public class IAController : MonoBehaviour
 {
+    [SerializeField]
+    private float health;
+    private float maxHealth = 100;
+
+    private bool isDead;
+
     private NavMeshAgent agent;
     [SerializeField]
     private GameObject player;
@@ -33,63 +39,105 @@ public class IAController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        health = maxHealth;
     }
 
     private void Update()
     {
-        if (attentionRange.GetComponent<checkCollider>().isPlayer)
+        if(health > 0)
         {
-            mat.color = new Color(255, 255, 0);
+            isDead = false;
+        }
+        else
+        {
+            isDead = true;
+        }
 
-            if (attackRange.GetComponent<checkCollider>().isPlayer)
+        if (!isDead)
+        {
+            if (attentionRange.GetComponent<checkCollider>().isPlayer)
             {
-                mat.color = new Color(255, 0, 0);
-                agent.SetDestination(player.transform.position);
+                mat.color = new Color(255, 255, 0);
+
+                if (attackRange.GetComponent<checkCollider>().isPlayer)
+                {
+                    mat.color = new Color(255, 0, 0);
+                    agent.SetDestination(player.transform.position);
+                }
+                else
+                {
+                    mat.color = new Color(255, 255, 0);
+                }
+            }
+
+            if(agent.remainingDistance > 0 && agent.remainingDistance <= 3.1 && canhit)
+            {
+                canhit = false;
+                StartCoroutine(Hit());
+            }
+
+            else
+            {
+                mat.color = new Color(0, 255, 0);
+            }
+
+            if (gameManager.isShooting)
+            {
+                attentionRange.GetComponent<SphereCollider>().radius = attentionRadius * 10;
+                attackRange.GetComponent<SphereCollider>().radius = attackRadius * 10;
+            }
+            else if (gameManager.isRunning)
+            {
+                attentionRange.GetComponent<SphereCollider>().radius = attentionRadius * 2;
+                attackRange.GetComponent<SphereCollider>().radius = attackRadius * 2;
+            }
+            else if (gameManager.isCrouching)
+            {
+                attentionRange.GetComponent<SphereCollider>().radius = attentionRadius / 2;
+                attackRange.GetComponent<SphereCollider>().radius = attackRadius / 2;
             }
             else
             {
-                mat.color = new Color(255, 255, 0);
+                attentionRange.GetComponent<SphereCollider>().radius = attentionRadius;
+                attackRange.GetComponent<SphereCollider>().radius = attackRadius;
+
             }
-        }
 
-        if(agent.remainingDistance > 0 && agent.remainingDistance <= 3.1 && canhit)
-        {
-            canhit = false;
-            StartCoroutine(Hit());
-        }
-
-        else
-        {
-            mat.color = new Color(0, 255, 0);
-        }
-
-        if (gameManager.isShooting)
-        {
-            attentionRange.GetComponent<SphereCollider>().radius = attentionRadius * 10;
-            attackRange.GetComponent<SphereCollider>().radius = attackRadius * 10;
-        }
-        else if (gameManager.isRunning)
-        {
-            attentionRange.GetComponent<SphereCollider>().radius = attentionRadius * 2;
-            attackRange.GetComponent<SphereCollider>().radius = attackRadius * 2;
-        }
-        else if (gameManager.isCrouching)
-        {
-            attentionRange.GetComponent<SphereCollider>().radius = attentionRadius / 2;
-            attackRange.GetComponent<SphereCollider>().radius = attackRadius / 2;
         }
         else
         {
-            attentionRange.GetComponent<SphereCollider>().radius = attentionRadius;
-            attackRange.GetComponent<SphereCollider>().radius = attackRadius;
-
+            Die();
         }
+        ClampHealth();
+    }
 
-        IEnumerator Hit()
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+    }
+
+    void ClampHealth()
+    {
+        if(health > maxHealth)
         {
-            gameManager.UpdateHealth(-20);
-            yield return new WaitForSeconds(1f);
-            canhit = true;
+            health = maxHealth;
         }
+
+        if(health < 0)
+        {
+            health = 0;
+        }
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
+    }
+
+    IEnumerator Hit()
+    {
+        gameManager.UpdateHealth(-20);
+        yield return new WaitForSeconds(1f);
+        canhit = true;
     }
 }

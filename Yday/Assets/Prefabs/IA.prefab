@@ -287,12 +287,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229363ad545ae554bb94e5719c9482dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
   player: {fileID: 0}
   attentionRange: {fileID: 5424014536882574078}
   attackRange: {fileID: 5424014537138803553}
   mat: {fileID: 2100000, guid: bd7c0b6ba34b28e46be14b332b5b6bd8, type: 2}
-  isRunning: 0
-  isCrouching: 0
   isShooting: 0
   attentionRadius: 10
   attackRadius: 20

@@ -24,6 +24,12 @@ public class PlayerController : MonoBehaviour
 
     CharacterController charac;
     GameManager gameManager;
+    [SerializeField]
+    GameObject cam;
+    [SerializeField]
+    float minCam;
+    [SerializeField]
+    float maxCam;
 
 
 
@@ -69,7 +75,13 @@ public class PlayerController : MonoBehaviour
             }
         }
         moveD.y -= gravity * Time.deltaTime;
-        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * Time.deltaTime * actualSpeed * mouseSensitivity);
+        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * Time.deltaTime * actualSpeed * mouseSensitivity * 10);
+
+        float rotationX = 0f;
+        rotationX += Input.GetAxis("Mouse Y") * Time.deltaTime * actualSpeed * mouseSensitivity * 10;
+        rotationX = Mathf.Clamp(rotationX, minCam, maxCam);
+
+        cam.transform.Rotate(Vector3.left * rotationX);
 
         charac.Move(moveD * Time.deltaTime * actualSpeed);
     }
@@ -78,11 +90,11 @@ public class PlayerController : MonoBehaviour
     {
         if(gameManager.isCrouching)
         {
-            actualSpeed = normalSpeed / 2;
+            actualSpeed = normalSpeed / 1.5f;
         }
         else if(gameManager.isRunning &&  gameManager.canRun)
         {
-            actualSpeed = normalSpeed * 2;
+            actualSpeed = normalSpeed * 1.5f;
         }else
         {
             actualSpeed = normalSpeed;

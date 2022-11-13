@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public float health;
+    private float maxHealth = 100f;
     public float stamina;
-    private float maxHealth = 100f; 
     private float maxStamina = 100f; 
-    private float looseStamina;
-    private float winStamina;
-<<<<<<< HEAD
+
     public float radioactivity;
     public float maxRadioactivity = 100f;
 
@@ -26,28 +26,25 @@ public class GameManager : MonoBehaviour
     private bool isDead;
 
     public bool isInside;
-=======
-    
-    public bool isCrouching;
-    public bool isRunning;
-    [HideInInspector]
-    public bool canRun;
 
-    public bool isShooting;
+    [Header("UI")]
+    [SerializeField]
+    private TMP_Text DieText;
+    [SerializeField]
+    private TMP_Text AmmoText;
 
-    private bool isDead;
->>>>>>> 366ee18781808b3d2e77c0b71d876fd66110994f
-
-
+    private void Awake()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     void Start()
     {
         health = maxHealth;
         stamina = maxStamina;
-        radioactivity = 0f;
-    }
-
-    //UPDATE ! 
+        DieText.enabled = false;
+    } 
 
     void Update()
     {
@@ -65,52 +62,52 @@ public class GameManager : MonoBehaviour
         {
             UpdateStamina(5);
         }
-<<<<<<< HEAD
+        ClampStamina();
 
-        if(isInside) 
+
+        if (isInside) 
         {
             if(radioactivity >= 100f)
             {
-                UpdateHealth(15);
+                UpdateHealth(-15);
             }
             else 
             {
-               radioactivity += 15f; 
+                radioactivity += 15 * Time.deltaTime;
             }
-        }else
+        }
+        else
         {
             UpdateRadioactivity();
         }
+        ClampRadioactivity();
 
-=======
->>>>>>> 366ee18781808b3d2e77c0b71d876fd66110994f
-        ClampStamina();
-
-        if(isDead)
+        if (isDead)
         {
             Die();
         }
     }
 
-    //FONCTION !
-
     public void UpdateHealth(float toUpdate)
     {
-        health += toUpdate;
+        health += toUpdate * Time.deltaTime;
         ClampHealth();
     }
 
     public void UpdateStamina(float stam)
     {
         stamina += stam * Time.deltaTime;
-<<<<<<< HEAD
+
     }
 
     public void UpdateRadioactivity()
     {
         radioactivity -= 1 * Time.deltaTime;
-=======
->>>>>>> 366ee18781808b3d2e77c0b71d876fd66110994f
+    }
+
+    public void UpdateAmmo(int actual, int global)
+    {
+        AmmoText.text = actual + " / " + global;
     }
 
     public void ClampHealth()
@@ -138,7 +135,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
+
      public void ClampRadioactivity()
     {
         if (radioactivity > maxRadioactivity)
@@ -151,10 +148,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-=======
->>>>>>> 366ee18781808b3d2e77c0b71d876fd66110994f
     public void Die()
     {
+        DieText.enabled = true;
+        StartCoroutine(GoToMenu());
+    }
+
+    IEnumerator GoToMenu()
+    {
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("main_menu");
     }
 }
