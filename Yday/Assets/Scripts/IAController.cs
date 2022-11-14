@@ -136,7 +136,7 @@ public class IAController : MonoBehaviour
 
     IEnumerator Hit()
     {
-        gameManager.UpdateHealth(-20);
+        gameManager.UpdateHealth(-200f);
         yield return new WaitForSeconds(1f);
         canhit = true;
     }

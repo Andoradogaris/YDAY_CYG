@@ -8,12 +8,12 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public float health;
-    private float maxHealth = 100f;
+    private float maxHealth = 100;
     public float stamina;
     private float maxStamina = 100f; 
 
     public float radioactivity;
-    public float maxRadioactivity = 100f;
+    private float maxRadioactivity = 100f;
 
     
     public bool isCrouching;
@@ -32,6 +32,12 @@ public class GameManager : MonoBehaviour
     private TMP_Text DieText;
     [SerializeField]
     private TMP_Text AmmoText;
+    [SerializeField]
+    private Image healthBar;
+    [SerializeField]
+    private Image staminaBar;
+    [SerializeField]
+    private Image radioactivityBar;
 
     private void Awake()
     {
@@ -92,17 +98,19 @@ public class GameManager : MonoBehaviour
     {
         health += toUpdate * Time.deltaTime;
         ClampHealth();
+        UpdateUI();
     }
 
     public void UpdateStamina(float stam)
     {
         stamina += stam * Time.deltaTime;
-
+        UpdateUI();
     }
 
     public void UpdateRadioactivity()
     {
         radioactivity -= 1 * Time.deltaTime;
+        UpdateUI();
     }
 
     public void UpdateAmmo(int actual, int global)
@@ -137,7 +145,7 @@ public class GameManager : MonoBehaviour
 
 
      public void ClampRadioactivity()
-    {
+     {
         if (radioactivity > maxRadioactivity)
         {
             radioactivity = maxRadioactivity;
@@ -146,6 +154,13 @@ public class GameManager : MonoBehaviour
         {
             radioactivity = 0f;
         }
+     }
+
+    public void UpdateUI()
+    {
+        healthBar.fillAmount = health / maxHealth;
+        staminaBar.fillAmount = stamina / maxStamina;
+        radioactivityBar.fillAmount = radioactivity / maxRadioactivity;
     }
 
     public void Die()
@@ -157,6 +172,8 @@ public class GameManager : MonoBehaviour
     IEnumerator GoToMenu()
     {
         yield return new WaitForSeconds(3f);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("main_menu");
     }
 }
