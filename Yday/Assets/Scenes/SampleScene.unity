@@ -3665,6 +3665,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8253503279784464728, guid: 89309bde488f8c94faf8dfd3c008ee14, type: 3}
+      propertyPath: playerControler
+      value: 
+      objectReference: {fileID: 1914583149}
+    - target: {fileID: 8253503279784464728, guid: 89309bde488f8c94faf8dfd3c008ee14, type: 3}
       propertyPath: radioactivityBar
       value: 
       objectReference: {fileID: 1395489634}
@@ -5101,6 +5105,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8583411513241022157, guid: 0235a895e67b31b42a103741498ca046, type: 3}
   m_PrefabInstance: {fileID: 8583411512400713377}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1914583149 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8583411513241022163, guid: 0235a895e67b31b42a103741498ca046, type: 3}
+  m_PrefabInstance: {fileID: 8583411512400713377}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914583148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fe6e61e59c53c45aab2d76f65f5cf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1941841955
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,8 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float normalSpeed = 6f;
 
-    [SerializeField]
-    private float actualSpeed = 6f;
+    public float actualSpeed = 6f;
 
     [SerializeField]
     private float jumpSpeed = 8f;
@@ -20,7 +19,7 @@ public class PlayerController : MonoBehaviour
     //[HideInInspector]
     public float mouseSensitivity;
 
-    private Vector3 moveD = Vector3.zero;
+    public Vector3 moveD = Vector3.zero;
 
     CharacterController charac;
     GameManager gameManager;
@@ -95,7 +94,8 @@ public class PlayerController : MonoBehaviour
         else if(gameManager.isRunning &&  gameManager.canRun)
         {
             actualSpeed = normalSpeed * 1.5f;
-        }else
+        }
+        else
         {
             actualSpeed = normalSpeed;
         }

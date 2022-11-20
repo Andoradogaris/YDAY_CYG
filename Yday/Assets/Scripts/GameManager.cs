@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
 
     public bool isInside;
 
+    [SerializeField]
+    private PlayerController playerControler;
+
     [Header("UI")]
     [SerializeField]
     private TMP_Text DieText;
@@ -54,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isRunning && stamina > 0)       // Gestion Stamina
+        if (isRunning && stamina > 0 && playerControler.actualSpeed > 0)       // Gestion Stamina
         {
             UpdateStamina(-5);
             canRun = true;
@@ -81,6 +84,7 @@ public class GameManager : MonoBehaviour
             {
                 radioactivity += 15 * Time.deltaTime;
             }
+            UpdateRadioactivity();
         }
         else
         {
