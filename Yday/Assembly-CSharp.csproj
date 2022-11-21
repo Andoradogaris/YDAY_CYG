@@ -98,6 +98,8 @@
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+    <Compile Include="Assets\Scripts\Options.cs" />
+    <Compile Include="Assets\Scripts\Backup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -108,6 +110,7 @@
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\data.txt" />
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\ImportPackages\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />

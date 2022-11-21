@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class UI_Manager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject loadingScreen;
+    [SerializeField]
+    private Slider slider;
+
     public GameObject mainMenu; 
     public GameObject Option;
     // public GameObject Sound;
@@ -13,11 +19,13 @@ public class UI_Manager : MonoBehaviour
     void Start(){
         mainMenu.SetActive(true);
         Option.SetActive(false);
-       //  Sound.SetActive(false);
+        //  Sound.SetActive(false);
+        loadingScreen.SetActive(false);
     }
 
-    public void LunchGame(){
-        SceneManager.LoadScene("SampleScene");
+    public void LoadLevel(int sceneIndex)
+    {
+        StartCoroutine(LoadLevelAsync(sceneIndex));
     }
 
     public void QuitGame(){
@@ -50,6 +58,22 @@ public class UI_Manager : MonoBehaviour
     public void OptionLanguage(){
         //SceneManager.LoadScene("Nom de la scene");
         Debug.Log("Erreur Attention (OptionLanguage) !");
+    }
+
+    IEnumerator LoadLevelAsync(int sceneIndex)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+
+        loadingScreen.SetActive(true);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+
+            slider.value = progress;
+            Debug.Log(progress * 100 + " %");
+            yield return null;
+        }
     }
 }
 
