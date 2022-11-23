@@ -3661,6 +3661,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8253503279784464728, guid: 89309bde488f8c94faf8dfd3c008ee14, type: 3}
+      propertyPath: isCrouching
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8253503279784464728, guid: 89309bde488f8c94faf8dfd3c008ee14, type: 3}
       propertyPath: looseStamina
       value: 1
       objectReference: {fileID: 0}
@@ -5720,6 +5724,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1914583148}
+    - target: {fileID: 5424014537492820471, guid: 61d430285a1928c4ba3266de284badaa, type: 3}
+      propertyPath: isShooting
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5424014537492820472, guid: 61d430285a1928c4ba3266de284badaa, type: 3}
       propertyPath: m_RootOrder
       value: 1

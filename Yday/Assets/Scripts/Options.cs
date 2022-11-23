@@ -8,10 +8,16 @@ public class Options : MonoBehaviour
 {
     [SerializeField]
     private TMP_Dropdown FpsLimitator;
+    [SerializeField]
+    private Slider sensibility;
+
+    [SerializeField]
+    private OptionsBackup optionsBackup;
 
     private void Start()
     {
         InstantiateDropDown();
+        sensibility.onValueChanged.AddListener(delegate { sensibilityItemSelected(sensibility); });
     }
 
     void InstantiateDropDown()
@@ -41,27 +47,39 @@ public class Options : MonoBehaviour
         int index = dropdown.value;
         if(index == 0)
         {
-            Application.targetFrameRate = 30;
+            index = 30;
+            Application.targetFrameRate = index;
         }
         else if (index == 1)
         {
-            Application.targetFrameRate = 60;
+            index = 60;
+            Application.targetFrameRate = index;
         }
         else if (index == 2)
         {
-            Application.targetFrameRate = 144;
+            index = 144;
+            Application.targetFrameRate = index;
         }
         else if (index == 3)
         {
-            Application.targetFrameRate = 165;
+            index = 165;
+            Application.targetFrameRate = index;
         }
         else if (index == 4)
         {
-            Application.targetFrameRate = 240;
+            index = 240;
+            Application.targetFrameRate = index;
         }
         else if (index == 5)
         {
-            Application.targetFrameRate = -1;
+            index = -1;
+            Application.targetFrameRate = index;
         }
+        optionsBackup.FPS = index;
+    }
+
+    void sensibilityItemSelected(Slider sensibility)
+    {
+        optionsBackup.sensibility = sensibility.value;
     }
 }

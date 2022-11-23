@@ -1,12 +1,12 @@
 using System.IO;
 using UnityEngine;
 
-public class Backup : MonoBehaviour
+public class OptionsBackup : MonoBehaviour
 {
-    public int goldCoin;
-    public int silverCoin;
-
-    public string characterName;
+    [HideInInspector]
+    public int FPS;
+    [HideInInspector]
+    public float sensibility;
 
     private string separator = "%VALUE%";
 
@@ -27,23 +27,21 @@ public class Backup : MonoBehaviour
     {
         string[] content = new string[]
         {
-            goldCoin.ToString(),
-            silverCoin.ToString(),
-            characterName
+            FPS.ToString(),
+            sensibility.ToString()
         };
 
         string saveString = string.Join(separator, content);
-        File.WriteAllText(Application.dataPath + "/data.txt", saveString);
+        File.WriteAllText(Application.dataPath + "/OptionsData.txt", saveString);
         Debug.Log("Sauvegardé");
     }
 
     void Load()
     {
-        string saveString = File.ReadAllText(Application.dataPath + "/data.txt");
+        string saveString = File.ReadAllText(Application.dataPath + "/OptionsData.txt");
         string[] content = saveString.Split(new[] { separator }, System.StringSplitOptions.None);
 
-        goldCoin = int.Parse(content[0]);
-        silverCoin = int.Parse(content[1]);
-        characterName = content[2];
+        FPS = int.Parse(content[0]);
+        sensibility = float.Parse(content[1]);
     }
 }

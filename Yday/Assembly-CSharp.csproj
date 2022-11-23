@@ -76,6 +76,7 @@
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+    <Compile Include="Assets\Scripts\Options.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\checkCollider.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\OptionsBackup.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\IAController.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
@@ -98,8 +100,7 @@
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-    <Compile Include="Assets\Scripts\Options.cs" />
-    <Compile Include="Assets\Scripts\Backup.cs" />
+    <Compile Include="Assets\Scripts\PlayerBackup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -120,6 +121,7 @@
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\ImportPackages\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\OptionsData.txt" />
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
