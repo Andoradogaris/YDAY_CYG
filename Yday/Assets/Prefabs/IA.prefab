@@ -166,9 +166,10 @@ GameObject:
   - component: {fileID: 5424014537492820469}
   - component: {fileID: 5424014537492820468}
   - component: {fileID: 5424014537492820471}
+  - component: {fileID: 6208964476178837905}
   m_Layer: 0
   m_Name: IA
-  m_TagString: Untagged
+  m_TagString: Alien
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,9 +290,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   player: {fileID: 0}
+  spawnPoint: {fileID: 0}
   attentionRange: {fileID: 5424014536882574078}
   attackRange: {fileID: 5424014537138803553}
   mat: {fileID: 2100000, guid: bd7c0b6ba34b28e46be14b332b5b6bd8, type: 2}
   isShooting: 0
   attentionRadius: 10
   attackRadius: 20
+--- !u!54 &6208964476178837905
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5424014537492820470}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

@@ -2,21 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Smoque : MonoBehaviour
+public class ShieldController : MonoBehaviour
 {
-    GameManager gameManager;
+    private GameManager gameManager;
 
-    void Start()
+    void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
     }
 
     void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            gameManager.isInsideRadioactivity = true;
+            gameManager.isSafe = true;
+        }
+        else if(other.CompareTag("Alien"))
+        {
+            Debug.Log(other.name + "has been killed by autodefense system.");
+            Destroy(other.gameObject);
         }
     }
 
@@ -24,7 +28,7 @@ public class Smoque : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            gameManager.isInsideRadioactivity = false;
+            gameManager.isSafe = false;
         }
     }
 }

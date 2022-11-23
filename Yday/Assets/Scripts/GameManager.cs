@@ -20,15 +20,13 @@ public class GameManager : MonoBehaviour
     public bool isRunning;
     [HideInInspector]
     public bool canRun;
-
     public bool isShooting;
-
     private bool isDead;
-
-    public bool isInside;
+    public bool isInsideRadioactivity;
+    public bool isSafe;
 
     [SerializeField]
-    private PlayerController playerControler;
+    private PlayerController playerController;
 
     [Header("UI")]
     [SerializeField]
@@ -57,7 +55,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isRunning && stamina > 0 && playerControler.actualSpeed > 0)       // Gestion Stamina
+        if (isRunning && stamina > 0 && playerController.actualSpeed > 0)       // Gestion Stamina
         {
             UpdateStamina(-5);
             canRun = true;
@@ -74,7 +72,7 @@ public class GameManager : MonoBehaviour
         ClampStamina();
 
 
-        if (isInside) 
+        if (isInsideRadioactivity) 
         {
             if(radioactivity >= 100f)
             {

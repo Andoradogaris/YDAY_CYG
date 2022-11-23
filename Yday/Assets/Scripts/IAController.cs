@@ -10,10 +10,13 @@ public class IAController : MonoBehaviour
     private float maxHealth = 100;
 
     private bool isDead;
+    private bool isFollowingPlayer;
 
     private NavMeshAgent agent;
     [SerializeField]
     private GameObject player;
+    [SerializeField]
+    private GameObject spawnPoint;
 
     [SerializeField]
     private GameObject attentionRange;
@@ -55,30 +58,49 @@ public class IAController : MonoBehaviour
 
         if (!isDead)
         {
-            if (attentionRange.GetComponent<checkCollider>().isPlayer)
+            if (attackRange.GetComponent<checkCollider>().isPlayer)
             {
-                mat.color = new Color(255, 255, 0);
-
-                if (attackRange.GetComponent<checkCollider>().isPlayer)
+                isFollowingPlayer = true;
+            }
+                        
+            if(isFollowingPlayer)
+            {
+                if(gameManager.isSafe)
                 {
-                    mat.color = new Color(255, 0, 0);
-                    agent.SetDestination(player.transform.position);
+                    int r = Random.Range(0, 6);
+                    if(r == 0)
+                    {
+                        agent.SetDestination(player.transform.position);
+                    }
+                    else
+                    {
+                        isFollowingPlayer = false;
+                    }
                 }
                 else
                 {
-                    mat.color = new Color(255, 255, 0);
+                    agent.SetDestination(player.transform.position);
                 }
             }
+            else
+            {
+                if(transform.position != spawnPoint.transform.position)
+                {
+                    agent.SetDestination(spawnPoint.transform.position);
+                }
+            }
+
+            if(agent.remainingDistance > attentionRange.GetComponent<SphereCollider>().radius * 5)
+            {
+                isFollowingPlayer = false;
+            }
+            
+            
 
             if(agent.remainingDistance > 0 && agent.remainingDistance <= 3.1 && canhit)
             {
                 canhit = false;
                 StartCoroutine(Hit());
-            }
-
-            else
-            {
-                mat.color = new Color(0, 255, 0);
             }
 
             if (gameManager.isShooting)
@@ -136,7 +158,7 @@ public class IAController : MonoBehaviour
 
     IEnumerator Hit()
     {
-        gameManager.UpdateHealth(-200f);
+        gameManager.UpdateHealth(-20f);
         yield return new WaitForSeconds(1f);
         canhit = true;
     }
