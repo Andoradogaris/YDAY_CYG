@@ -4364,6 +4364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activationText: {fileID: 1628854739}
   shield: {fileID: 1262029647}
+  index: 1
 --- !u!65 &1034867399
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5559,6 +5560,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89309bde488f8c94faf8dfd3c008ee14, type: 3}
+--- !u!1 &1340361068 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8253503279784464729, guid: 89309bde488f8c94faf8dfd3c008ee14, type: 3}
+  m_PrefabInstance: {fileID: 1340361067}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1340361069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340361068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 136da36acdf117545b3464a1d4c9487c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bunkerId: 0
 --- !u!4 &1372493908 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8313084656887007157, guid: e2f4e0a965deabc4fa36bf4e09199a6f, type: 3}

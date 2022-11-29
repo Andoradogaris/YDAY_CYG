@@ -6,18 +6,17 @@ using TMPro;
 
 public class Options : MonoBehaviour
 {
-    [SerializeField]
-    private TMP_Dropdown FpsLimitator;
-    [SerializeField]
-    private Slider sensibility;
+    public TMP_Dropdown FpsLimitator;
+    public Slider sensibility;
 
     [SerializeField]
     private OptionsBackup optionsBackup;
 
-    private void Start()
+    private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         InstantiateDropDown();
-        sensibility.onValueChanged.AddListener(delegate { sensibilityItemSelected(sensibility); });
+        InstantiateSensibility();
     }
 
     void InstantiateDropDown()
@@ -36,6 +35,7 @@ public class Options : MonoBehaviour
         {
             FpsLimitator.options.Add(new TMP_Dropdown.OptionData() { text = item });
         }
+
         FpsLimitator.value = Screen.currentResolution.refreshRate;
         DropdownItemSelected(FpsLimitator);
 
@@ -76,6 +76,11 @@ public class Options : MonoBehaviour
             Application.targetFrameRate = index;
         }
         optionsBackup.FPS = index;
+    }
+
+    void InstantiateSensibility()
+    {
+        sensibility.onValueChanged.AddListener(delegate { sensibilityItemSelected(sensibility); });
     }
 
     void sensibilityItemSelected(Slider sensibility)

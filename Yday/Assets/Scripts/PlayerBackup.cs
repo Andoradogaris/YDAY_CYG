@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class PlayerBackup : MonoBehaviour
 {
-    /*public int goldCoin;
-    public int silverCoin;
-
-    public string characterName;*/
+    [HideInInspector]
+    public int bunkerId;
 
     private string separator = "%VALUE%";
 
@@ -23,27 +21,23 @@ public class PlayerBackup : MonoBehaviour
         }
     }
 
-    void Save()
+    public void Save()
     {
         string[] content = new string[]
         {
-            /*goldCoin.ToString(),
-            silverCoin.ToString(),
-            characterName*/
+            bunkerId.ToString()
         };
 
         string saveString = string.Join(separator, content);
-        File.WriteAllText(Application.dataPath + "/data.txt", saveString);
+        File.WriteAllText(Application.dataPath + "/Data/PlayerData.txt", saveString);
         Debug.Log("Sauvegardé");
     }
 
     void Load()
     {
-        string saveString = File.ReadAllText(Application.dataPath + "/data.txt");
+        string saveString = File.ReadAllText(Application.dataPath + "/Data/PlayerData.txt");
         string[] content = saveString.Split(new[] { separator }, System.StringSplitOptions.None);
 
-        /*goldCoin = int.Parse(content[0]);
-        silverCoin = int.Parse(content[1]);
-        characterName = content[2];*/
+        bunkerId = int.Parse(content[0]);
     }
 }

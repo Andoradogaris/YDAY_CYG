@@ -13,8 +13,14 @@ public class BunkerSafety : MonoBehaviour
 
     private bool isInside;
 
+    [SerializeField]
+    private int index;
+
+    private PlayerBackup playerBackup;
+
     private void Start()
     {
+        playerBackup = GameObject.Find("GameManager").GetComponent<PlayerBackup>();
         activationText.enabled = false;
         shield.SetActive(false);
     }
@@ -25,6 +31,11 @@ public class BunkerSafety : MonoBehaviour
         {
             activationText.enabled = false;
             shield.SetActive(true);
+            if(playerBackup.bunkerId < index)
+            {
+                playerBackup.bunkerId = index;
+                playerBackup.Save();
+            }
             Destroy(gameObject);
         }
     }
