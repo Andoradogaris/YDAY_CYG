@@ -69,14 +69,16 @@ public class Gun : MonoBehaviour
         Instantiate(muzzle, muzzleFlash.transform.position, muzzleFlash.transform.rotation);
 
         RaycastHit hit;
-        if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        int mask = 1 << LayerMask.NameToLayer("Alien");
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-
-            IAController iaController = hit.transform.GetComponent<IAController>();
-
-            if(iaController != null)
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Alien"))
             {
-                iaController.TakeDamage(damage);
+                IAController iaController = hit.transform.GetComponent<IAController>();
+                if (iaController != null)
+                {
+                    iaController.TakeDamage(damage);
+                }
             }
         }
         gameManager.UpdateAmmo(actualAmmoInLoader, totalAmmo);

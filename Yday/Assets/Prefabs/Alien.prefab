@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8313084656887007157}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Alien
   m_TagString: Alien
   m_Icon: {fileID: 0}
@@ -71,9 +71,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8313084656887007157}
     m_Modifications:
+    - target: {fileID: 5424014536882574078, guid: 61d430285a1928c4ba3266de284badaa, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424014537138803553, guid: 61d430285a1928c4ba3266de284badaa, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5424014537492820470, guid: 61d430285a1928c4ba3266de284badaa, type: 3}
       propertyPath: m_Name
       value: IA
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424014537492820470, guid: 61d430285a1928c4ba3266de284badaa, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5424014537492820471, guid: 61d430285a1928c4ba3266de284badaa, type: 3}
       propertyPath: player
