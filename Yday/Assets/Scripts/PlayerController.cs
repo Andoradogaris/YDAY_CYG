@@ -77,12 +77,23 @@ public class PlayerController : MonoBehaviour
             {
                 moveD = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
                 moveD = transform.TransformDirection(moveD);
-                moveD *= actualSpeed;
+
+                if((Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0))
+                {
+                    moveD *= actualSpeed;
+                    moveD.x /= Mathf.Sqrt(2);
+                    moveD.z /= Mathf.Sqrt(2);
+                }
+                else 
+                {
+                    moveD *= actualSpeed;
+                }
 
                 if (Input.GetButton("Jump"))
                 {
                     moveD.y = jumpSpeed;
                 }
+                Debug.Log(moveD);
             }
             moveD.y -= gravity * Time.deltaTime;
             transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * Time.deltaTime * actualSpeed * mouseSensitivity * 10);

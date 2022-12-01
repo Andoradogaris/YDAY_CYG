@@ -43,7 +43,7 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-        if(actualAmmoInLoader > 0 && !isShooting && !isReloading)
+        if(actualAmmoInLoader > 0 && !isShooting && !isReloading && !gameManager.isDead)
         {
             canFire = true;
         }

@@ -43,7 +43,7 @@ public class AK : MonoBehaviour
 
     void Update()
     {
-        if (actualAmmoInLoader > 0 && !isShooting && !isReloading)
+        if (actualAmmoInLoader > 0 && !isShooting && !isReloading && !gameManager.isDead)
         {
             canFire = true;
         }
@@ -71,7 +71,7 @@ public class AK : MonoBehaviour
         RaycastHit hit;
         int mask = 1 << LayerMask.NameToLayer("Alien");
 
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range, mask))
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
             if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Alien"))
             {
