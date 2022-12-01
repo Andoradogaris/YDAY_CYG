@@ -103,6 +103,8 @@
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+    <Compile Include="Assets\Scripts\AK.cs" />
+    <Compile Include="Assets\Scripts\Minimap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ImportPackages\TextMesh Pro\Shaders\TMPro.cginc" />

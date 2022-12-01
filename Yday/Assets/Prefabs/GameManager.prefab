@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8253503279784464727}
   - component: {fileID: 8253503279784464728}
+  - component: {fileID: 1340361069}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,7 +47,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   stamina: 0
-  maxHealth: 100
-  maxStamina: 100
-  looseStamina: 0
-  winStamina: 0
+  radioactivity: 0
+  isCrouching: 0
+  isRunning: 0
+  canRun: 0
+  isShooting: 0
+  isInsideRadioactivity: 0
+  isSafe: 0
+  playerController: {fileID: 0}
+  DieText: {fileID: 0}
+  AmmoText: {fileID: 0}
+  healthBar: {fileID: 0}
+  staminaBar: {fileID: 0}
+  radioactivityBar: {fileID: 0}
+--- !u!114 &1340361069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253503279784464729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 136da36acdf117545b3464a1d4c9487c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bunkerId: 0

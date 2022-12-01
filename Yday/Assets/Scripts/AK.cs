@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class AK : MonoBehaviour
 {
     [SerializeField]
     private float damage = 50f;
@@ -43,7 +43,7 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-        if(actualAmmoInLoader > 0 && !isShooting && !isReloading)
+        if (actualAmmoInLoader > 0 && !isShooting && !isReloading)
         {
             canFire = true;
         }
@@ -52,7 +52,7 @@ public class Gun : MonoBehaviour
             canFire = false;
         }
 
-        if (Input.GetButtonDown("Fire1") && canFire)
+        if (Input.GetButton("Fire1") && canFire)
         {
             Shoot();
             StartCoroutine(ShootCoroutine());
@@ -69,12 +69,12 @@ public class Gun : MonoBehaviour
         Instantiate(muzzle, muzzleFlash.transform.position, muzzleFlash.transform.rotation);
 
         RaycastHit hit;
-        if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
 
             IAController iaController = hit.transform.GetComponent<IAController>();
 
-            if(iaController != null)
+            if (iaController != null)
             {
                 iaController.TakeDamage(damage);
             }
@@ -84,14 +84,14 @@ public class Gun : MonoBehaviour
 
     void Reload()
     {
-        if(maxAmmoInLoader <= totalAmmo)
+        if (maxAmmoInLoader <= totalAmmo)
         {
             totalAmmo -= maxAmmoInLoader - actualAmmoInLoader;
             actualAmmoInLoader = maxAmmoInLoader;
         }
         else
         {
-            if(actualAmmoInLoader + totalAmmo <= maxAmmoInLoader)
+            if (actualAmmoInLoader + totalAmmo <= maxAmmoInLoader)
             {
                 actualAmmoInLoader += totalAmmo;
                 totalAmmo -= totalAmmo;

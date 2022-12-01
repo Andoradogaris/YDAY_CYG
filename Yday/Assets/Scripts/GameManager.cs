@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool canRun;
     public bool isShooting;
-    private bool isDead;
+    [HideInInspector]
+    public bool isDead;
     public bool isInsideRadioactivity;
     public bool isSafe;
 
@@ -55,19 +56,15 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isRunning && stamina > 0 && playerController.actualSpeed > 0)       // Gestion Stamina
+        if (isRunning && stamina > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))       // Gestion Stamina
         {
             UpdateStamina(-5);
             canRun = true;
         }
         else
         {
-            canRun = false;
-        }
-
-        if(!isRunning && stamina < maxStamina)
-        {
             UpdateStamina(5);
+            canRun = false;
         }
         ClampStamina();
 

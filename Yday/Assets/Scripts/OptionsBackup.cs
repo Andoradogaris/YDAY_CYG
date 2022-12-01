@@ -43,13 +43,13 @@ public class OptionsBackup : MonoBehaviour
         };
 
         string saveString = string.Join(separator, content);
-        File.WriteAllText(Application.dataPath + "/Data/OptionsData.txt", saveString);
+        File.WriteAllText(Application.dataPath + "\\Data\\OptionsData.txt", saveString);
         Debug.Log("Sauvegardé");
     }
 
     void Load()
     {
-        string saveString = File.ReadAllText(Application.dataPath + "/Data/OptionsData.txt");
+        string saveString = File.ReadAllText(Application.dataPath + "\\Data\\OptionsData.txt");
         string[] content = saveString.Split(new[] { separator }, System.StringSplitOptions.None);
 
         options.FpsLimitator.value = int.Parse(content[0]);

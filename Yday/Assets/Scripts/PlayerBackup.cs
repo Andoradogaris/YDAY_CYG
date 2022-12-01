@@ -29,13 +29,13 @@ public class PlayerBackup : MonoBehaviour
         };
 
         string saveString = string.Join(separator, content);
-        File.WriteAllText(Application.dataPath + "/Data/PlayerData.txt", saveString);
+        File.WriteAllText(Application.dataPath + "\\Data\\PlayerData.txt", saveString);
         Debug.Log("Sauvegardé");
     }
 
     void Load()
     {
-        string saveString = File.ReadAllText(Application.dataPath + "/Data/PlayerData.txt");
+        string saveString = File.ReadAllText(Application.dataPath + "\\Data\\PlayerData.txt");
         string[] content = saveString.Split(new[] { separator }, System.StringSplitOptions.None);
 
         bunkerId = int.Parse(content[0]);
