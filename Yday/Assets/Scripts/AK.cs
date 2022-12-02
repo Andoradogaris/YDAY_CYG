@@ -21,8 +21,6 @@ public class AK : MonoBehaviour
     [SerializeField]
     private bool isShooting;
     [SerializeField]
-    private bool isReloading;
-    [SerializeField]
     private bool canFire;
 
     [SerializeField]
@@ -43,7 +41,7 @@ public class AK : MonoBehaviour
 
     void Update()
     {
-        if (actualAmmoInLoader > 0 && !isShooting && !isReloading && !gameManager.isDead)
+        if (actualAmmoInLoader > 0 && !isShooting && !gameManager.isReloading && !gameManager.isDead)
         {
             canFire = true;
         }
@@ -57,7 +55,7 @@ public class AK : MonoBehaviour
             Shoot();
             StartCoroutine(ShootCoroutine());
         }
-        else if (((Input.GetButtonDown("Fire1") && !canFire && !isShooting) || Input.GetKeyDown(KeyCode.R)) && totalAmmo != 0)
+        else if (((Input.GetButtonDown("Fire1") && !canFire && !isShooting) || Input.GetKeyDown(KeyCode.R)) && totalAmmo != 0 && actualAmmoInLoader < maxAmmoInLoader)
         {
             StartCoroutine(ReloadCoroutine());
         }
@@ -71,7 +69,7 @@ public class AK : MonoBehaviour
         RaycastHit hit;
         int mask = 1 << LayerMask.NameToLayer("Alien");
 
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range, ~(LayerMask.NameToLayer("Ignore Raycast"))))
         {
             if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Alien"))
             {
@@ -120,9 +118,9 @@ public class AK : MonoBehaviour
 
     IEnumerator ReloadCoroutine()
     {
-        isReloading = true;
+        gameManager.isReloading = true;
         yield return new WaitForSeconds(reloadTime);
         Reload();
-        isReloading = false;
+        gameManager.isReloading = false;
     }
 }

@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Smoque.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\ShieldController.cs" />
+    <Compile Include="Assets\Scripts\IAController_V2.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\ImportPackages\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\CameraSwitcher.cs" />

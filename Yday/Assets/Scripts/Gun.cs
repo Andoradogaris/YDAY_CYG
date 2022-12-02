@@ -19,10 +19,6 @@ public class Gun : MonoBehaviour
     private float reloadTime;
 
     [SerializeField]
-    private bool isShooting;
-    [SerializeField]
-    private bool isReloading;
-    [SerializeField]
     private bool canFire;
 
     [SerializeField]
@@ -43,7 +39,7 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-        if(actualAmmoInLoader > 0 && !isShooting && !isReloading && !gameManager.isDead)
+        if(actualAmmoInLoader > 0 && !gameManager.isShooting && !gameManager.isReloading && !gameManager.isDead)
         {
             canFire = true;
         }
@@ -57,7 +53,7 @@ public class Gun : MonoBehaviour
             Shoot();
             StartCoroutine(ShootCoroutine());
         }
-        else if (((Input.GetButtonDown("Fire1") && !canFire && !isShooting) || Input.GetKeyDown(KeyCode.R)) && totalAmmo != 0)
+        else if (((Input.GetButtonDown("Fire1") && !canFire && !gameManager.isShooting) || Input.GetKeyDown(KeyCode.R)) && totalAmmo != 0 && actualAmmoInLoader < maxAmmoInLoader)
         {
             StartCoroutine(ReloadCoroutine());
         }
@@ -70,7 +66,7 @@ public class Gun : MonoBehaviour
 
         RaycastHit hit;
         int mask = 1 << LayerMask.NameToLayer("Alien");
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range, ~(LayerMask.NameToLayer("Ignore Raycast"))))
         {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Alien"))
             {
@@ -110,18 +106,16 @@ public class Gun : MonoBehaviour
 
     IEnumerator ShootCoroutine()
     {
-        isShooting = true;
         gameManager.isShooting = true;
         yield return new WaitForSeconds(shootTime);
-        isShooting = false;
         gameManager.isShooting = false;
     }
 
     IEnumerator ReloadCoroutine()
     {
-        isReloading = true;
+        gameManager.isReloading = true;
         yield return new WaitForSeconds(reloadTime);
         Reload();
-        isReloading = false;
+        gameManager.isReloading = false;
     }
 }

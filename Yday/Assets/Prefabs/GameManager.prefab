@@ -48,15 +48,18 @@ MonoBehaviour:
   health: 0
   stamina: 0
   radioactivity: 0
-  isCrouching: 0
+  isCrouching: 1
   isRunning: 0
   canRun: 0
   isShooting: 0
+  isDead: 0
   isInsideRadioactivity: 0
   isSafe: 0
+  isReloading: 0
   playerController: {fileID: 0}
   DieText: {fileID: 0}
   AmmoText: {fileID: 0}
+  reload: {fileID: 0}
   healthBar: {fileID: 0}
   staminaBar: {fileID: 0}
   radioactivityBar: {fileID: 0}

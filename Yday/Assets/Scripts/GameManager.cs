@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public bool isDead;
     public bool isInsideRadioactivity;
     public bool isSafe;
+    public bool isReloading;
 
     [SerializeField]
     private PlayerController playerController;
@@ -35,11 +36,15 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TMP_Text AmmoText;
     [SerializeField]
+    private Image reload;
+    [SerializeField]
     private Image healthBar;
     [SerializeField]
     private Image staminaBar;
     [SerializeField]
     private Image radioactivityBar;
+
+    PlayerBackup playerBackup;
 
     private void Awake()
     {
@@ -52,7 +57,18 @@ public class GameManager : MonoBehaviour
         health = maxHealth;
         stamina = maxStamina;
         DieText.enabled = false;
+        reload.enabled = false;
+        playerBackup = GetComponent<PlayerBackup>();
+        SetValues();
     } 
+
+    void SetValues()
+    {
+        health = playerBackup.health;
+        stamina = playerBackup.stamina;
+        radioactivity = playerBackup.radioactivity;
+    }
+
 
     void Update()
     {
@@ -66,8 +82,6 @@ public class GameManager : MonoBehaviour
             UpdateStamina(5);
             canRun = false;
         }
-        ClampStamina();
-
 
         if (isInsideRadioactivity) 
         {
@@ -85,31 +99,32 @@ public class GameManager : MonoBehaviour
         {
             UpdateRadioactivity();
         }
-        ClampRadioactivity();
 
         if (isDead)
         {
             Die();
         }
+
+        UpdateUI();
+        playerBackup.Save();
     }
 
     public void UpdateHealth(float toUpdate)
     {
         health += toUpdate * Time.deltaTime;
         ClampHealth();
-        UpdateUI();
     }
 
     public void UpdateStamina(float stam)
     {
         stamina += stam * Time.deltaTime;
-        UpdateUI();
+        ClampStamina();
     }
 
     public void UpdateRadioactivity()
     {
         radioactivity -= 1 * Time.deltaTime;
-        UpdateUI();
+        ClampRadioactivity();
     }
 
     public void UpdateAmmo(int actual, int global)
@@ -128,6 +143,7 @@ public class GameManager : MonoBehaviour
             health = 0f;
             isDead = true;
         }
+        playerBackup.health = health;
     }
 
     public void ClampStamina()
@@ -140,6 +156,7 @@ public class GameManager : MonoBehaviour
         {
             stamina = 0f;
         }
+        playerBackup.stamina = stamina;
     }
 
 
@@ -153,13 +170,25 @@ public class GameManager : MonoBehaviour
         {
             radioactivity = 0f;
         }
-     }
+        playerBackup.radioactivity = radioactivity;
+    }
 
     public void UpdateUI()
     {
         healthBar.fillAmount = health / maxHealth;
         staminaBar.fillAmount = stamina / maxStamina;
         radioactivityBar.fillAmount = radioactivity / maxRadioactivity;
+
+        if (isReloading)
+        {
+            reload.enabled = true;
+            AmmoText.enabled = false;
+        }
+        else
+        {
+            reload.enabled = false;
+            AmmoText.enabled = true;
+        }
     }
 
     public void Die()

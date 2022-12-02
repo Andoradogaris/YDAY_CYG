@@ -7,6 +7,8 @@ public class OptionsBackup : MonoBehaviour
     public int FPS;
     [HideInInspector]
     public float sensibility;
+    [HideInInspector]
+    public int resolution;
 
     private string separator = "%VALUE%";
 
@@ -22,6 +24,7 @@ public class OptionsBackup : MonoBehaviour
     {
         FPS = options.FpsLimitator.value;
         sensibility = options.sensibility.value;
+        resolution = options.Resolution.value;
 
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -39,7 +42,8 @@ public class OptionsBackup : MonoBehaviour
         string[] content = new string[]
         {
             FPS.ToString(),
-            sensibility.ToString()
+            sensibility.ToString(),
+            resolution.ToString()
         };
 
         string saveString = string.Join(separator, content);
@@ -54,5 +58,6 @@ public class OptionsBackup : MonoBehaviour
 
         options.FpsLimitator.value = int.Parse(content[0]);
         options.sensibility.value = float.Parse(content[1]);
+        options.Resolution.value = int.Parse(content[2]);
     }
 }

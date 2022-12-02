@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 moveD = Vector3.zero;
 
     CharacterController charac;
+    PlayerBackup playerBackup;
     GameManager gameManager;
     [SerializeField]
     GameObject cam;
@@ -42,9 +43,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         charac = GetComponent<CharacterController>();
+        playerBackup = GameObject.Find("GameManager").GetComponent<PlayerBackup>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gun = weapons[1].GetComponent<Gun>();
         ak = weapons[0].GetComponent<AK>();
+        weaponIndex = playerBackup.actualWeapon;
     }
 
 
@@ -93,7 +96,6 @@ public class PlayerController : MonoBehaviour
                 {
                     moveD.y = jumpSpeed;
                 }
-                Debug.Log(moveD);
             }
             moveD.y -= gravity * Time.deltaTime;
             transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * Time.deltaTime * actualSpeed * mouseSensitivity * 10);
@@ -105,13 +107,21 @@ public class PlayerController : MonoBehaviour
 
             charac.Move(moveD * Time.deltaTime * actualSpeed);
 
-            if (Input.GetAxis("Mouse ScrollWheel") < 0)
+            if (Input.GetAxis("Mouse ScrollWheel") < 0 && !gameManager.isReloading && !gameManager.isShooting)
             {
-                weaponIndex = 1;
+                if(weapons.Count - 1 > weaponIndex)
+                {
+                    weaponIndex++;
+                    playerBackup.actualWeapon = weaponIndex;
+                }
             }
-            else if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            else if (Input.GetAxis("Mouse ScrollWheel") > 0 && !gameManager.isReloading && !gameManager.isShooting)
             {
-                weaponIndex = 0;
+                if (weaponIndex > 0)
+                {
+                    weaponIndex--;
+                    playerBackup.actualWeapon = weaponIndex;
+                }
             }
 
             SetWeapon(weaponIndex);

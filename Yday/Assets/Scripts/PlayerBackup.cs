@@ -5,8 +5,21 @@ public class PlayerBackup : MonoBehaviour
 {
     [HideInInspector]
     public int bunkerId;
+    [HideInInspector]
+    public int actualWeapon;
+    [HideInInspector]
+    public float health;
+    [HideInInspector]
+    public float stamina;
+    [HideInInspector]
+    public float radioactivity;
 
     private string separator = "%VALUE%";
+
+    private void Awake()
+    {
+        Load();
+    }
 
     private void Update()
     {
@@ -25,19 +38,27 @@ public class PlayerBackup : MonoBehaviour
     {
         string[] content = new string[]
         {
-            bunkerId.ToString()
+            bunkerId.ToString(),
+            actualWeapon.ToString(),
+            health.ToString(),
+            stamina.ToString(),
+            radioactivity.ToString()
         };
 
         string saveString = string.Join(separator, content);
-        File.WriteAllText(Application.dataPath + "\\Data\\PlayerData.txt", saveString);
+        File.WriteAllText(Application.dataPath + "PlayerData.txt", saveString);
         Debug.Log("Sauvegardé");
     }
 
-    void Load()
+    public void Load()
     {
-        string saveString = File.ReadAllText(Application.dataPath + "\\Data\\PlayerData.txt");
+        string saveString = File.ReadAllText(Application.dataPath + "PlayerData.txt");
         string[] content = saveString.Split(new[] { separator }, System.StringSplitOptions.None);
 
         bunkerId = int.Parse(content[0]);
+        actualWeapon = int.Parse(content[1]);
+        health = float.Parse(content[2]);
+        stamina = float.Parse(content[3]);
+        radioactivity = float.Parse(content[4]);
     }
 }
