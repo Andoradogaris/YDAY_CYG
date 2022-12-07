@@ -47,7 +47,7 @@ public class PlayerBackup : MonoBehaviour
 
         string saveString = string.Join(separator, content);
         File.WriteAllText(Application.dataPath + "PlayerData.txt", saveString);
-        Debug.Log("Sauvegardé");
+        Debug.Log("Sauvegardï¿½");
     }
 
     public void Load()

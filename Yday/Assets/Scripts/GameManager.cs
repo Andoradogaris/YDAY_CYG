@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     private Image staminaBar;
     [SerializeField]
     private Image radioactivityBar;
+    [SerializeField]
+    private GameObject SmoqueScreen;
 
     PlayerBackup playerBackup;
 
@@ -64,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     void SetValues()
     {
-        health = playerBackup.health;
+        //health = playerBackup.health;
         stamina = playerBackup.stamina;
         radioactivity = playerBackup.radioactivity;
     }
@@ -85,6 +87,7 @@ public class GameManager : MonoBehaviour
 
         if (isInsideRadioactivity) 
         {
+            SmoqueScreen.SetActive(true);
             if(radioactivity >= 100f)
             {
                 UpdateHealth(-15);
@@ -97,6 +100,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            SmoqueScreen.SetActive(false);
             UpdateRadioactivity();
         }
 
