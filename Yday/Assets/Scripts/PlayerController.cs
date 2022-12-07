@@ -6,9 +6,9 @@ using UnityEngine.AI;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float normalSpeed = 6f;
+    private float normalSpeed = 4f;
 
-    public float actualSpeed = 6f;
+    public float actualSpeed = 4f;
 
     [SerializeField]
     private float jumpSpeed = 8f;
@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(gameManager.isRunning &&  gameManager.canRun)
         {
-            actualSpeed = normalSpeed * 1.5f;
+            actualSpeed = normalSpeed * 1.25f;
         }
         else
         {

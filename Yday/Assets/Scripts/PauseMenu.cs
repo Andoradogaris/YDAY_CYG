@@ -4,51 +4,44 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenu;
+[SerializeField] private GameObject pauseMenu;
 
-    void Start()
+private void Start()
+{
+    pauseMenu.SetActive(false);
+}
+
+void FixedUpdate()
+{
+    if (Input.GetKeyDown(KeyCode.P))
     {
-        pauseMenu.SetActive(false);
+        ActivePauseMenu();
     }
+}
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Pause();
-            Debug.Log("Escape is pressed");
-        }
+// private void IfPauseMenuActive()
+// {
+//     if (pauseMenu.SetActive = true) 
+//     {
+//         return true;
+//     }
+//     return false;
+// }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && pauseMenu)
-        {
-            UnPaused();
-        }
-    }
+private void ActivePauseMenu()
+{
+    pauseMenu.SetActive(true);
+    Time.timeScale = 0f;
+    Cursor.visible = true;
+    Cursor.lockState = CursorLockMode.None;
+}
 
-    // public void Quit()
-    // {
 
-    // }
-
-    // public void Option()
-    // {
-
-    // }
-
-    public void Pause()
-    {
-        pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        
-    }
-
-    public void UnPaused()
-    {
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+//     public void UnPaused()
+//     {
+//         pauseMenu.SetActive(false);
+//         Time.timeScale = 1f;
+//         Cursor.visible = false;
+//         Cursor.lockState = CursorLockMode.Locked;
+//     }
 }

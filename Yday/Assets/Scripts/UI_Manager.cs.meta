@@ -3,7 +3,12 @@ guid: 138deeb31cb9fbc4889497a045d8dc93
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - loadingScreen: {instanceID: 0}
+  - slider: {instanceID: 0}
+  - pauseMenu: {fileID: 495298685142416858, guid: 6b7f1f16e76a90841b4981fe37729c7b, type: 3}
+  - mainMenu: {instanceID: 0}
+  - Option: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

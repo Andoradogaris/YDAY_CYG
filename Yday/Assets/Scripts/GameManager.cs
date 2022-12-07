@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
     {
         if (isRunning && stamina > 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))       // Gestion Stamina
         {
-            UpdateStamina(-5);
+            UpdateStamina(-10);
             canRun = true;
         }
         else

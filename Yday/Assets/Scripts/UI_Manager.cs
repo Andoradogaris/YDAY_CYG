@@ -60,6 +60,7 @@ public class UI_Manager : MonoBehaviour
         Debug.Log("Erreur Attention (OptionLanguage) !");
     }
 
+
     IEnumerator LoadLevelAsync(int sceneIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
