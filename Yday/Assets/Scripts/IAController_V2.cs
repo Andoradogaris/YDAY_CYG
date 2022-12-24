@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,42 +6,46 @@ public class IAController_V2 : MonoBehaviour
 {
     [SerializeField]
     private float health;
+    [SerializeField]
     private float maxHealth = 100;
 
     private bool isDead;
+    [SerializeField]
     private bool isFollowingPlayer;
 
     private NavMeshAgent agent;
+
     [SerializeField]
     private GameObject player;
     [SerializeField]
     private GameObject spawnPoint;
 
-    [SerializeField]
-    private GameObject attentionRange;
-    [SerializeField]
-    private GameObject attackRange;
-
     private bool canhit = true;
 
     [SerializeField]
-    private float attentionRadius;
+    private float attackRange;
     [SerializeField]
-    private float attackRadius;
+    private float attentionRange;
+    [SerializeField]
+    private float farerPos;
 
     GameManager gameManager;
+
+    RaycastHit hit;
 
     #region Start
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        //gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         health = maxHealth;
     }
     #endregion
 
     private void Update()
     {
+
+
         #region Gestion de la mort
         if (health > 0)
         {
@@ -55,75 +59,103 @@ public class IAController_V2 : MonoBehaviour
 
         if (!isDead)
         {
-            if (attackRange.GetComponent<checkCollider>().isPlayer)
+            if (!isFollowingPlayer)
             {
-                Debug.Log("is In attack Range");
-                isFollowingPlayer = true;
-            }
-            else if (attentionRange.GetComponent<checkCollider>().isPlayer && !attackRange.GetComponent<checkCollider>().isPlayer)
-            {    
-                RaycastHit hit;
-                int mask = 1 << LayerMask.NameToLayer("Player");
-
-                if (Physics.Raycast(transform.position, player.transform.position, out hit))
+                if (Physics.Raycast(transform.position, player.transform.position - transform.position, out hit))
                 {
-                    if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+                    float distance = hit.distance;
+                    int mask = 1 << LayerMask.NameToLayer("Player");
+                    if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player") && distance <= attackRange)
                     {
-                        isFollowingPlayer = true;
-                        Debug.Log("is Only in attention Range but I can see you");
+                        Chase();
+                    }
+                    else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player") && distance <= attentionRange)
+                    {
+                        Chase();
                     }
                     else
                     {
                         isFollowingPlayer = false;
-                        Debug.Log("is Only in attention Range but hidden");
                     }
                 }
             }
-            else if (agent.remainingDistance >= attentionRange.GetComponent<SphereCollider>().radius * 5)
+            else
             {
-                isFollowingPlayer = false;
+                if (Physics.Raycast(transform.position, player.transform.position - transform.position, out hit, ~(LayerMask.NameToLayer("Ignore Raycast"))))
+                {
+                    float distance = hit.distance;
+                    int mask = 1 << LayerMask.NameToLayer("Player");
+                    if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player") && distance <= attackRange)
+                    {
+                        Chase();
+                    }
+                    else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player") && distance <= attentionRange)
+                    {
+                        Chase();
+                    }
+                    else
+                    {
+                        isFollowingPlayer = false;
+                    }
+                }
             }
-            Move();
 
-
-
-
-            if (agent.remainingDistance > 0.1 && agent.remainingDistance <= 3.1 && canhit && isFollowingPlayer)
-            {
-                Debug.Log(agent.remainingDistance);
-                canhit = false;
-                StartCoroutine(Hit());
-            }
-
-         /*   #region Taille Zone DÈtection
+            #region Taille Zone DÔøΩtection
             if (gameManager.isShooting)
             {
-                attentionRange.GetComponent<SphereCollider>().radius = attentionRadius * 10;
-                attackRange.GetComponent<SphereCollider>().radius = attackRadius * 10;
+                attentionRange *= 10;
+                attackRange *= 10;
             }
             else if (gameManager.isRunning)
             {
-                attentionRange.GetComponent<SphereCollider>().radius = attentionRadius * 2;
-                attackRange.GetComponent<SphereCollider>().radius = attackRadius * 2;
+                attentionRange *= 2;
+                attackRange *= 2;
             }
             else if (gameManager.isCrouching)
             {
-                attentionRange.GetComponent<SphereCollider>().radius = attentionRadius / 2;
-                attackRange.GetComponent<SphereCollider>().radius = attackRadius / 2;
+                attentionRange /= 2;
+                attackRange /= 2;
             }
             else
             {
-                attentionRange.GetComponent<SphereCollider>().radius = attentionRadius;
-                attackRange.GetComponent<SphereCollider>().radius = attackRadius;
+                attentionRange = 12;
+                attackRange = 24;
             }
             #endregion*/
 
+            Move();
         }
         else
         {
             Die();
         }
         ClampHealth();
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, player.transform.position);
+    }
+
+    void Chase()
+    {
+        isFollowingPlayer = true;
+        if (agent.remainingDistance > 0.1 && agent.remainingDistance <= 3.1 && canhit && isFollowingPlayer)
+        {
+            StartCoroutine(Hit());
+        }
+        else
+        {
+            if (hit.distance >= farerPos)
+            {
+                isFollowingPlayer = false;
+            }
+            else
+            {
+                Move();
+            }
+        }
     }
 
     void Move()
@@ -173,10 +205,11 @@ public class IAController_V2 : MonoBehaviour
     #region Hit
     IEnumerator Hit()
     {
-        //gameManager.UpdateHealth(-20f);
-        Debug.Log(name + " a fait 20 dÈg‚ts");
+        canhit = false;
+        gameManager.UpdateHealth(-20f);
+        Debug.Log(name + " a fait 20 d√©g√¢ts");
         yield return new WaitForSeconds(1f);
         canhit = true;
     }
-#endregion
+    #endregion
 }

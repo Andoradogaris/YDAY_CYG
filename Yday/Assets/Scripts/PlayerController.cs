@@ -33,8 +33,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     List<GameObject> weapons = new List<GameObject>();
-    [SerializeField]
-    int weaponIndex;
+    public int weaponIndex;
     Gun gun;
     AK ak;
 

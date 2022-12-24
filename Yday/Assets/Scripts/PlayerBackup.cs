@@ -21,7 +21,7 @@ public class PlayerBackup : MonoBehaviour
         Load();
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -32,7 +32,7 @@ public class PlayerBackup : MonoBehaviour
         {
             Load();
         }
-    }
+    }*/
 
     public void Save()
     {

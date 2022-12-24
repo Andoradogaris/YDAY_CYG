@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
-  range: 1000
+  range: 10000
   actualAmmoInLoader: 50
   maxAmmoInLoader: 50
   totalAmmo: 150

@@ -27,8 +27,7 @@ public class GameManager : MonoBehaviour
     public bool isSafe;
     public bool isReloading;
 
-    [SerializeField]
-    private PlayerController playerController;
+    public PlayerController playerController;
 
     [Header("UI")]
     [SerializeField]
@@ -62,11 +61,19 @@ public class GameManager : MonoBehaviour
         reload.enabled = false;
         playerBackup = GetComponent<PlayerBackup>();
         SetValues();
+        StartCoroutine(Save());
     } 
 
     void SetValues()
     {
-        //health = playerBackup.health;
+        if(playerBackup.health > 0)
+        {
+            health = playerBackup.health;
+        }
+        else
+        {
+            health = maxHealth;
+        }
         stamina = playerBackup.stamina;
         radioactivity = playerBackup.radioactivity;
     }
@@ -110,7 +117,6 @@ public class GameManager : MonoBehaviour
         }
 
         UpdateUI();
-        playerBackup.Save();
     }
 
     public void UpdateHealth(float toUpdate)
@@ -207,6 +213,15 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("main_menu");
+    }
+
+    IEnumerator Save()
+    {
+        while(true)
+        {
+            playerBackup.Save();
+            yield return new WaitForSeconds(30f);
+        }
     }
 }
 

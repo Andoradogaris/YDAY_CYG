@@ -70,7 +70,7 @@ public class Gun : MonoBehaviour
         {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Alien"))
             {
-                IAController iaController = hit.transform.GetComponent<IAController>();
+                IAController_V2 iaController = hit.transform.GetComponent<IAController_V2>();
                 if (iaController != null)
                 {
                     iaController.TakeDamage(damage);
@@ -101,6 +101,12 @@ public class Gun : MonoBehaviour
             }
 
         }
+        gameManager.UpdateAmmo(actualAmmoInLoader, totalAmmo);
+    }
+
+    public void GetAmmo(int ammoToAdd)
+    {
+        totalAmmo += ammoToAdd;
         gameManager.UpdateAmmo(actualAmmoInLoader, totalAmmo);
     }
 
