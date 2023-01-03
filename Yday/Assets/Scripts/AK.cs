@@ -55,7 +55,7 @@ public class AK : MonoBehaviour
             Shoot();
             StartCoroutine(ShootCoroutine());
         }
-        else if (((Input.GetButtonDown("Fire1") && !canFire && !isShooting) || Input.GetKeyDown(KeyCode.R)) && totalAmmo != 0 && actualAmmoInLoader < maxAmmoInLoader)
+        else if (((Input.GetButtonDown("Fire1") && !canFire && !isShooting) || Input.GetKeyDown(KeyCode.R) && actualAmmoInLoader < maxAmmoInLoader) && totalAmmo != 0)
         {
             StartCoroutine(ReloadCoroutine());
         }

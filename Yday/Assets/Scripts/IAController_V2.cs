@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,6 +33,8 @@ public class IAController_V2 : MonoBehaviour
     GameManager gameManager;
 
     RaycastHit hit;
+
+    float dissolveValue = 1;
 
     #region Start
     private void Start()
@@ -198,7 +201,10 @@ public class IAController_V2 : MonoBehaviour
     #region Die
     void Die()
     {
-        Destroy(gameObject);
+        agent.speed = 0;
+        dissolveValue -= Time.deltaTime;
+        GetComponent<MeshRenderer>().material.SetFloat("_DissolveValue", dissolveValue);
+        Destroy(gameObject, 1);
     }
     #endregion
 
