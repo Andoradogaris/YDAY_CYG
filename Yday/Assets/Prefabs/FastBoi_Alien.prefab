@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4588612408777282511}
   m_Layer: 0
   m_Name: FastBoi_Alien
-  m_TagString: Alien
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

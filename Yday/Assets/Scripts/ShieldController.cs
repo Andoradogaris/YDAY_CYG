@@ -17,11 +17,12 @@ public class ShieldController : MonoBehaviour
         {
             gameManager.isSafe = true;
         }
-        else if(other.CompareTag("Alien"))
+        else
         {
             Debug.Log(other.name + "has been killed by autodefense system.");
-            Destroy(other.gameObject);
+            other.GetComponent<IAController_V2>().TakeDamage(1000000);
         }
+        Debug.Log("test");
     }
 
     void OnTriggerExit(Collider other)
